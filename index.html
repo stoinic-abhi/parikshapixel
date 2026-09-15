@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ParikshaPixel — India's Official Exam Photo & Signature Studio</title>
+  
+  <meta name="description" content="Auto-fit passport photos & signatures for SSC, UPSC, JEE Main, NEET, IBPS, and State PSC forms. Add Name & DOP date banner, clean signature background, and compress to exact 20KB-50KB limits.">
+  <meta name="keywords" content="parikshapixel, ssc photo maker with date, upsc photo resizer 20kb to 50kb, jee main photo name date, signature background cleaner, sarkari form photo resize">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ParikshaPixel — India's Official Exam Photo & Signature Studio">
+  <meta property="og:description" content="Crop, add Name & DOP, clean signatures, and lock exact KB limits for all Indian Govt exams in 1-click.">
+  <meta property="og:type" content="website">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ParikshaPixel",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "featureList": [
+      "Face alignment guideline overlays for passport photos",
+      "Interactive pan, zoom, and rotate canvas",
+      "Automated Name and Date of Photo (DOP) generation",
+      "Signature shadow remover & high-contrast ink booster",
+      "Strict binary search target KB compression engine",
+      "Presets for SSC, UPSC, NTA, IBPS, RRB, and State PSCs"
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-base: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-muted: #e2e8f0;
+      --border: #e2e8f0;
+      --border-focus: #0f172a;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-sub: #94a3b8;
+      --accent: #0f172a;
+      --accent-hover: #1e293b;
+      --badge-green: #059669;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+      --shadow-card: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+      --shadow-elevated: 0 12px 28px -4px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation */
+    .top-nav {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-symbol {
+      width: 32px;
+      height: 32px;
+      background: #0f172a;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-tagline {
+      font-size: 0.65rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    .trust-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .trust-dot {
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50%;
+    }
+
+    /* Layout Frame */
+    .app-frame {
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+      flex: 1;
+    }
+
+    .hero-strip {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-strip h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .hero-strip p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Mode Switcher */
+    .mode-pills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      max-width: 380px;
+      margin: 0 auto 28px;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: 10px;
+    }
+
+    .mode-btn {
+      padding: 9px 14px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .mode-btn.active {
+      background: #ffffff;
+      color: var(--text-main);
+      font-weight: 700;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    /* 2-Column Workstation */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .studio-grid { grid-template-columns: 1fr; }
+      .hero-strip h1 { font-size: 1.65rem; }
+    }
+
+    /* Left Stage */
+    .stage-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    .upload-box {
+      width: 100%;
+      border: 2px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: var(--radius-md);
+      padding: 64px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .upload-box:hover, .upload-box.drag-over {
+      border-color: #0f172a;
+      background: #f1f5f9;
+    }
+
+    .upload-circle-icon {
+      width: 56px;
+      height: 56px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .upload-circle-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--text-main);
+    }
+
+    .upload-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .upload-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Active Canvas Stage */
+    .active-stage {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .canvas-viewport-wrapper {
+      position: relative;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: 14px;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .canvas-viewport-wrapper:active {
+      cursor: grabbing;
+    }
+
+    #studioCanvas {
+      background: #ffffff;
+      max-width: 100%;
+      max-height: 420px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Guidelines Overlay */
+    .guideline-overlay {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      pointer-events: none;
+      border: 1px dashed rgba(15, 23, 42, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .face-oval-guide {
+      width: 55%;
+      height: 60%;
+      border: 2px dashed rgba(15, 23, 42, 0.45);
+      border-radius: 50% 50% 45% 45%;
+      margin-top: -8%;
+    }
+
+    .guide-label {
+      position: absolute;
+      bottom: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Floating Canvas Controls */
+    .canvas-controls-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 999px;
+      width: 100%;
+      max-width: 440px;
+      justify-content: space-between;
+    }
+
+    .slider-control-inline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .slider-control-inline span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .slider-input {
+      flex: 1;
+      accent-color: #0f172a;
+      cursor: pointer;
+    }
+
+    .tool-icon-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      width: 32px;
+      height: 32px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s ease;
+    }
+
+    .tool-icon-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .stage-stats {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    .badge-live-kb {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 5px;
+    }
+
+    /* Right Panel */
+    .toolbox-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .panel-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .tag-target-badge {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 3px 8px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .setting-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .setting-label span.desc {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    /* Preset Chips */
+    .preset-chip-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .preset-chip {
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+
+    .preset-chip:hover {
+      border-color: #94a3b8;
+      background: #f1f5f9;
+    }
+
+    .preset-chip.active {
+      background: #0f172a;
+      border-color: #0f172a;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chip-exam-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .preset-chip.active .chip-exam-name {
+      color: #ffffff;
+    }
+
+    .chip-exam-spec {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .preset-chip.active .chip-exam-spec {
+      color: #cbd5e1;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: var(--text-main);
+      outline: none;
+      background: #f8fafc;
+      transition: all 0.15s;
+    }
+
+    .form-input:focus {
+      border-color: #0f172a;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.05);
+    }
+
+    /* Toggle Rows */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 0;
+    }
+
+    .toggle-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 24px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider-toggle {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .2s;
+      border-radius: 24px;
+    }
+
+    .slider-toggle:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      transition: .2s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider-toggle {
+      background-color: #0f172a;
+    }
+
+    input:checked + .slider-toggle:before {
+      transform: translateX(18px);
+    }
+
+    /* Action Button */
+    .btn-render-download {
+      width: 100%;
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 15px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-render-download:hover:not(:disabled) {
+      background: #1e293b;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.24);
+    }
+
+    .btn-render-download:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Adsterra Native Placement */
+    .ad-native-placement {
+      margin-top: 10px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 6px;
+      text-align: center;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      overflow: hidden;
+    }
+
+    /* Educational Section */
+    .reference-section {
+      margin-top: 48px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .ref-header {
+      margin-bottom: 16px;
+    }
+
+    .ref-header h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .ref-header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .spec-table-wrap {
+      overflow-x: auto;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      text-align: left;
+    }
+
+    .spec-table th, .spec-table td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+    }
+
+    .spec-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .badge-mandatory {
+      background: #fef2f2;
+      color: #991b1b;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid #fecaca;
+    }
+
+    footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 28px 20px;
+      margin-top: 48px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-nav">
+    <a href="#" class="brand-group">
+      <div class="brand-symbol">P</div>
+      <div class="brand-title">
+        <span>ParikshaPixel</span>
+        <span class="brand-tagline">STUDIO</span>
+      </div>
+    </a>
+    <div class="trust-indicator">
+      <div class="trust-dot"></div>
+      <span>100% In-Browser Privacy</span>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-frame">
+
+    <div class="hero-strip">
+      <h1>Official Exam Photo & Signature Studio</h1>
+      <p>Precision pixel cropping, Name & Date of Photo (DOP) stamping, signature shadow removal, and strict 20KB–50KB compression calibrated for all Indian competitive forms.</p>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div class="mode-pills">
+      <button class="mode-btn active" id="pillPhoto" onclick="setStudioMode('photo')">
+        <span>📸 Passport Photo</span>
+      </button>
+      <button class="mode-btn" id="pillSig" onclick="setStudioMode('signature')">
+        <span>✍️ Signature</span>
+      </button>
+    </div>
+
+    <div class="studio-grid">
+      
+      <!-- Interactive Stage (Left) -->
+      <div class="stage-card">
+        
+        <!-- Upload Drop Zone -->
+        <div class="upload-box" id="dropArea">
+          <div class="upload-circle-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div class="upload-title">Drop your <span id="uploadLabelText">Passport Photo</span> here, or browse</div>
+          <div class="upload-sub">Supports JPG, JPEG, PNG, WEBP • Zero server uploads</div>
+        </div>
+        <input type="file" id="filePicker" style="display: none;" accept="image/jpeg, image/png, image/webp">
+
+        <!-- Active Canvas Stage -->
+        <div class="active-stage" id="stageContainer">
+          
+          <div class="canvas-viewport-wrapper" id="viewportWrap">
+            <canvas id="studioCanvas"></canvas>
+            <div class="guideline-overlay" id="guidelineBox">
+              <div class="face-oval-guide" id="faceOval"></div>
+              <span class="guide-label" id="guideText">Align Eyes & Chin inside Oval</span>
+            </div>
+          </div>
+
+          <!-- Quick Canvas Tools (Zoom, Rotate, Reset) -->
+          <div class="canvas-controls-bar">
+            <div class="slider-control-inline">
+              <span>ZOOM</span>
+              <input type="range" class="slider-input" id="zoomSlider" min="0.5" max="2.5" step="0.02" value="1" oninput="onZoomChange(this.value)">
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="tool-icon-btn" title="Rotate 90° Clockwise" onclick="rotateCanvas(90)">↻</button>
+              <button class="tool-icon-btn" title="Reset Positioning" onclick="resetTransforms()">⟲</button>
+              <button class="tool-icon-btn" title="Change Photo" onclick="document.getElementById('filePicker').click()">📁</button>
+            </div>
+          </div>
+
+          <!-- Canvas Meta Specs Bar -->
+          <div class="stage-stats">
+            <span id="metaDims">350 × 450 px</span>
+            <span>•</span>
+            <span id="metaAspect">3.5 × 4.5 cm</span>
+            <span>•</span>
+            <span class="badge-live-kb" id="metaKbEstimate">Target: 20-50 KB</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Right Config Panel -->
+      <aside class="toolbox-panel">
+        
+        <div class="panel-heading">
+          <span>Exam Configuration</span>
+          <span class="tag-target-badge" id="targetBadge">20 - 50 KB</span>
+        </div>
+
+        <!-- Presets -->
+        <div class="setting-group">
+          <div class="setting-label">
+            <span>Select Examination Preset</span>
+            <span class="desc">Official Guidelines</span>
+          </div>
+          <div class="preset-chip-grid">
+            <div class="preset-chip active" id="chip_ssc" onclick="selectPreset('ssc')">
+              <div class="chip-exam-name">SSC (CGL/CHSL/GD)</div>
+              <div class="chip-exam-spec">3.5×4.5cm • 20-50KB</div>
+            </div>
+            <div class="preset-chip" id="chip_upsc" onclick="selectPreset('upsc')">
+              <div class="chip-exam-name">UPSC Civil Services</div>
+              <div class="chip-exam-spec">350×350px • 20-300KB</div>
+            </div>
+            <div class="preset-chip" id="chip_nta" onclick="selectPreset('nta')">
+              <div class="chip-exam-name">NTA (JEE / NEET)</div>
+              <div class="chip-exam-spec">3.5×4.5cm • 10-200KB</div>
+            </div>
+            <div class="preset-chip" id="chip_ibps" onclick="selectPreset('ibps')">
+              <div class="chip-exam-name">IBPS / SBI Bank PO</div>
+              <div class="chip-exam-spec">4.5×3.5cm • 20-50KB</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Name & DOP Strip -->
+        <div id="dopControlsSection">
+          <div class="toggle-row">
+            <div>
+              <div class="toggle-title">Print Name & Date of Photo (DOP)</div>
+              <div style="font-size: 0.72rem; color: var(--text-sub);">Required in SSC & NTA forms</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="dopToggle" onchange="toggleDopStrip(this.checked)">
+              <span class="slider-toggle"></span>
+            </label>
+          </div>
+
+          <div id="dopInputFields" style="display: none; flex-direction: column; gap: 8px; margin-top: 8px;">
+            <div class="setting-group">
+              <label class="setting-label">Candidate Name</label>
+              <input type="text" id="candidateNameInput" class="form-input" placeholder="e.g. ABHISHEK JANGRA" oninput="drawCanvas()">
+            </div>
+            <div class="setting-group">
+              <label class="setting-label">Date of Photo (DOP)</label>
+              <input type="date" id="dopDateInput" class="form-input" oninput="drawCanvas()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Signature Cleaner -->
+        <div id="sigEnhanceSection" style="display: none;">
+          <div class="toggle-row">
+            <div>
+              <div class="toggle-title">Ink Booster & Paper Whitener</div>
+              <div style="font-size: 0.72rem; color: var(--text-sub);">Removes yellow shadow from phone clicks</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="sigCleanToggle" checked onchange="drawCanvas()">
+              <span class="slider-toggle"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- File Size Limits -->
+        <div class="setting-group">
+          <div class="setting-label">
+            <span>Target Output Size Range</span>
+            <span class="desc">Strict Binary Compression</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div>
+              <span style="font-size: 0.7rem; color: var(--text-muted); font-weight:600;">Min KB</span>
+              <input type="number" id="minKbInput" class="form-input" value="20" onchange="drawCanvas()">
+            </div>
+            <div>
+              <span style="font-size: 0.7rem; color: var(--text-muted); font-weight:600;">Max KB</span>
+              <input type="number" id="maxKbInput" class="form-input" value="50" onchange="drawCanvas()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Action -->
+        <button class="btn-render-download" id="downloadBtn" disabled onclick="exportFinishedFile()">
+          <span>Download Formatted File</span>
+        </button>
+
+        <!-- Active Adsterra Ad Unit Placement -->
+        <div class="ad-native-placement">
+          <script async="async" data-cfasync="false" src="https://pl31360022.profitableratecpmnetwork.com/ae99cdfc2f1f2031b0b5fea809c74d83/invoke.js"></script>
+          <div id="container-ae99cdfc2f1f2031b0b5fea809c74d83"></div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- Reference Table -->
+    <section class="reference-section">
+      <div class="ref-header">
+        <h2>Official Indian Exam Image Matrix (2026 Updated)</h2>
+        <p>Pre-configured standard dimensions, limits, and validation mandates.</p>
+      </div>
+
+      <div class="spec-table-wrap">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Exam Name</th>
+              <th>Photo Dimensions</th>
+              <th>Photo KB Limit</th>
+              <th>Signature KB Limit</th>
+              <th>Name & DOP Rules</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SSC CGL / CHSL / MTS / GD</strong></td>
+              <td>3.5 cm × 4.5 cm (350×450 px)</td>
+              <td>20 KB to 50 KB</td>
+              <td>10 KB to 20 KB</td>
+              <td><span class="badge-mandatory">Date Recommended</span></td>
+            </tr>
+            <tr>
+              <td><strong>UPSC Civil Services (IAS/IPS)</strong></td>
+              <td>350 × 350 px (Square)</td>
+              <td>20 KB to 300 KB</td>
+              <td>20 KB to 300 KB</td>
+              <td><span class="badge-mandatory">Name & Date Mandatory</span></td>
+            </tr>
+            <tr>
+              <td><strong>NTA JEE Main / NEET UG</strong></td>
+              <td>3.5 cm × 4.5 cm</td>
+              <td>10 KB to 200 KB</td>
+              <td>4 KB to 30 KB</td>
+              <td><span class="badge-mandatory">Name & Date Mandatory</span></td>
+            </tr>
+            <tr>
+              <td><strong>IBPS / SBI PO & Clerk</strong></td>
+              <td>4.5 cm × 3.5 cm</td>
+              <td>20 KB to 50 KB</td>
+              <td>10 KB to 20 KB</td>
+              <td>White background, No Date</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 ParikshaPixel Studio. High-fidelity in-browser rendering. Zero server uploads.</p>
+  </footer>
+
+  <script>
+    // State
+    let currentMode = 'photo';
+    let currentImage = null;
+    let targetWidth = 350;
+    let targetHeight = 450;
+    let activePreset = 'ssc';
+
+    // Transforms
+    let zoomLevel = 1.0;
+    let rotationDeg = 0;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+
+    // Elements
+    const dropArea = document.getElementById('dropArea');
+    const filePicker = document.getElementById('filePicker');
+    const stageContainer = document.getElementById('stageContainer');
+    const studioCanvas = document.getElementById('studioCanvas');
+    const viewportWrap = document.getElementById('viewportWrap');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const guidelineBox = document.getElementById('guidelineBox');
+    const metaDims = document.getElementById('metaDims');
+    const metaAspect = document.getElementById('metaAspect');
+    const metaKbEstimate = document.getElementById('metaKbEstimate');
+    const targetBadge = document.getElementById('targetBadge');
+    const minKbInput = document.getElementById('minKbInput');
+    const maxKbInput = document.getElementById('maxKbInput');
+    const dopToggle = document.getElementById('dopToggle');
+    const dopInputFields = document.getElementById('dopInputFields');
+    const candidateNameInput = document.getElementById('candidateNameInput');
+    const dopDateInput = document.getElementById('dopDateInput');
+    const sigEnhanceSection = document.getElementById('sigEnhanceSection');
+    const dopControlsSection = document.getElementById('dopControlsSection');
+
+    // Default Date to Today
+    dopDateInput.valueAsDate = new Date();
+
+    dropArea.addEventListener('click', () => filePicker.click());
+
+    ['dragenter', 'dragover'].forEach(n => {
+      dropArea.addEventListener(n, (e) => { e.preventDefault(); dropArea.classList.add('drag-over'); });
+    });
+    ['dragleave', 'drop'].forEach(n => {
+      dropArea.addEventListener(n, (e) => { e.preventDefault(); dropArea.classList.remove('drag-over'); });
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) processIncomingFile(e.dataTransfer.files[0]);
+    });
+
+    filePicker.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) processIncomingFile(e.target.files[0]);
+    });
+
+    function processIncomingFile(file) {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          currentImage = img;
+          resetTransforms();
+          dropArea.style.display = 'none';
+          stageContainer.style.display = 'flex';
+          downloadBtn.disabled = false;
+          drawCanvas();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Pan / Dragging
+    viewportWrap.addEventListener('mousedown', (e) => {
+      if (!currentImage) return;
+      isDragging = true;
+      dragStartX = e.clientX - panX;
+      dragStartY = e.clientY - panY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      panX = e.clientX - dragStartX;
+      panY = e.clientY - dragStartY;
+      drawCanvas();
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    viewportWrap.addEventListener('touchstart', (e) => {
+      if (!currentImage || e.touches.length !== 1) return;
+      isDragging = true;
+      dragStartX = e.touches[0].clientX - panX;
+      dragStartY = e.touches[0].clientY - panY;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      panX = e.touches[0].clientX - dragStartX;
+      panY = e.touches[0].clientY - dragStartY;
+      drawCanvas();
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => { isDragging = false; });
+
+    function onZoomChange(val) {
+      zoomLevel = parseFloat(val);
+      drawCanvas();
+    }
+
+    function rotateCanvas(angle) {
+      rotationDeg = (rotationDeg + angle) % 360;
+      drawCanvas();
+    }
+
+    function resetTransforms() {
+      zoomLevel = 1.0;
+      rotationDeg = 0;
+      panX = 0;
+      panY = 0;
+      document.getElementById('zoomSlider').value = 1.0;
+      drawCanvas();
+    }
+
+    function setStudioMode(mode) {
+      currentMode = mode;
+      document.getElementById('pillPhoto').classList.toggle('active', mode === 'photo');
+      document.getElementById('pillSig').classList.toggle('active', mode === 'signature');
+      document.getElementById('uploadLabelText').textContent = mode === 'photo' ? 'Passport Photo' : 'Signature';
+
+      guidelineBox.style.display = mode === 'photo' ? 'flex' : 'none';
+      dopControlsSection.style.display = mode === 'photo' ? 'block' : 'none';
+      sigEnhanceSection.style.display = mode === 'signature' ? 'block' : 'none';
+
+      if (mode === 'signature') {
+        targetWidth = 280;
+        targetHeight = 120;
+        minKbInput.value = 10;
+        maxKbInput.value = 20;
+        metaAspect.textContent = "Signature Strip";
+      } else {
+        targetWidth = 350;
+        targetHeight = 450;
+        minKbInput.value = 20;
+        maxKbInput.value = 50;
+        metaAspect.textContent = "3.5 × 4.5 cm";
+      }
+
+      selectPreset(activePreset);
+      drawCanvas();
+    }
+
+    function selectPreset(preset) {
+      activePreset = preset;
+      document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
+      const activeChip = document.getElementById(`chip_${preset}`);
+      if (activeChip) activeChip.classList.add('active');
+
+      if (currentMode === 'photo') {
+        if (preset === 'ssc') {
+          targetWidth = 350; targetHeight = 450; minKbInput.value = 20; maxKbInput.value = 50;
+          dopToggle.checked = true;
+        } else if (preset === 'upsc') {
+          targetWidth = 350; targetHeight = 350; minKbInput.value = 20; maxKbInput.value = 300;
+          dopToggle.checked = true;
+        } else if (preset === 'nta') {
+          targetWidth = 350; targetHeight = 450; minKbInput.value = 10; maxKbInput.value = 200;
+          dopToggle.checked = true;
+        } else if (preset === 'ibps') {
+          targetWidth = 350; targetHeight = 450; minKbInput.value = 20; maxKbInput.value = 50;
+          dopToggle.checked = false;
+        }
+      } else {
+        targetWidth = 280; targetHeight = 120; minKbInput.value = 10; maxKbInput.value = 20;
+      }
+
+      toggleDopStrip(dopToggle.checked);
+      targetBadge.textContent = `${minKbInput.value} - ${maxKbInput.value} KB`;
+      metaDims.textContent = `${targetWidth} × ${targetHeight} px`;
+      drawCanvas();
+    }
+
+    function toggleDopStrip(active) {
+      dopInputFields.style.display = active && currentMode === 'photo' ? 'flex' : 'none';
+      drawCanvas();
+    }
+
+    function drawCanvas() {
+      if (!currentImage) return;
+
+      studioCanvas.width = targetWidth;
+      studioCanvas.height = targetHeight;
+      const ctx = studioCanvas.getContext('2d');
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+      const hasDop = currentMode === 'photo' && dopToggle.checked;
+      let activeDrawHeight = targetHeight;
+      let stripHeight = 0;
+
+      if (hasDop) {
+        stripHeight = Math.round(targetHeight * 0.22);
+        activeDrawHeight = targetHeight - stripHeight;
+      }
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, targetWidth, activeDrawHeight);
+      ctx.clip();
+
+      ctx.translate((targetWidth / 2) + panX, (activeDrawHeight / 2) + panY);
+      ctx.rotate((rotationDeg * Math.PI) / 180);
+      ctx.scale(zoomLevel, zoomLevel);
+
+      const imgAspect = currentImage.width / currentImage.height;
+      const slotAspect = targetWidth / activeDrawHeight;
+      let drawW, drawH;
+
+      if (imgAspect > slotAspect) {
+        drawH = activeDrawHeight;
+        drawW = activeDrawHeight * imgAspect;
+      } else {
+        drawW = targetWidth;
+        drawH = targetWidth / imgAspect;
+      }
+
+      ctx.drawImage(currentImage, -drawW / 2, -drawH / 2, drawW, drawH);
+      ctx.restore();
+
+      // Signature Clean
+      if (currentMode === 'signature' && document.getElementById('sigCleanToggle').checked) {
+        const frame = ctx.getImageData(0, 0, targetWidth, targetHeight);
+        const d = frame.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+          if (lum > 155) {
+            d[i] = 255; d[i + 1] = 255; d[i + 2] = 255;
+          } else {
+            const ink = Math.max(0, lum * 0.7);
+            d[i] = ink; d[i + 1] = ink; d[i + 2] = ink;
+          }
+        }
+        ctx.putImageData(frame, 0, 0);
+      }
+
+      // Name & Date of Photo Strip
+      if (hasDop) {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, activeDrawHeight, targetWidth, stripHeight);
+
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(0, activeDrawHeight, targetWidth, stripHeight);
+
+        const nameText = candidateNameInput.value.trim() || 'CANDIDATE NAME';
+        const rawDate = dopDateInput.value;
+        let dateFormatted = 'DOP: ';
+        if (rawDate) {
+          const p = rawDate.split('-');
+          dateFormatted += `${p[2]}/${p[1]}/${p[0]}`;
+        } else {
+          dateFormatted += 'DD/MM/YYYY';
+        }
+
+        ctx.fillStyle = "#000000";
+        ctx.textAlign = "center";
+
+        const nameFontSize = Math.round(stripHeight * 0.36);
+        ctx.font = `700 ${nameFontSize}px 'Plus Jakarta Sans', sans-serif`;
+        ctx.fillText(nameText.toUpperCase(), targetWidth / 2, activeDrawHeight + (stripHeight * 0.44));
+
+        const dateFontSize = Math.round(stripHeight * 0.30);
+        ctx.font = `600 ${dateFontSize}px 'JetBrains Mono', monospace`;
+        ctx.fillText(dateFormatted, targetWidth / 2, activeDrawHeight + (stripHeight * 0.85));
+      }
+
+      evaluateSizeMeter();
+    }
+
+    // Binary Search Compression
+    function compressToStrictRange(targetMin, targetMax) {
+      return new Promise((resolve) => {
+        let low = 0.05;
+        let high = 0.99;
+        let bestBlob = null;
+        let iteration = 0;
+
+        function runStep() {
+          const mid = (low + high) / 2;
+          studioCanvas.toBlob((blob) => {
+            const kb = blob.size / 1024;
+            bestBlob = blob;
+
+            if (iteration++ > 8) {
+              resolve(bestBlob);
+              return;
+            }
+
+            if (kb > targetMax) {
+              high = mid;
+              runStep();
+            } else if (kb < targetMin && mid < 0.95) {
+              low = mid;
+              runStep();
+            } else {
+              resolve(bestBlob);
+            }
+          }, 'image/jpeg', mid);
+        }
+        runStep();
+      });
+    }
+
+    async function evaluateSizeMeter() {
+      const minK = parseFloat(minKbInput.value) || 20;
+      const maxK = parseFloat(maxKbInput.value) || 50;
+      const sampleBlob = await compressToStrictRange(minK, maxK);
+      const estKb = (sampleBlob.size / 1024).toFixed(1);
+      metaKbEstimate.textContent = `Output Size: ~${estKb} KB`;
+    }
+
+    async function exportFinishedFile() {
+      downloadBtn.disabled = true;
+      downloadBtn.innerHTML = `<span>Optimizing File...</span>`;
+
+      const minK = parseFloat(minKbInput.value) || 20;
+      const maxK = parseFloat(maxKbInput.value) || 50;
+      const finalBlob = await compressToStrictRange(minK, maxK);
+
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(finalBlob);
+      a.download = currentMode === 'photo' 
+        ? `${activePreset.toUpperCase()}_Photo_${Math.round(finalBlob.size/1024)}KB.jpg` 
+        : `${activePreset.toUpperCase()}_Signature_${Math.round(finalBlob.size/1024)}KB.jpg`;
+      a.click();
+
+      downloadBtn.disabled = false;
+      downloadBtn.innerHTML = `<span>Download Formatted File</span>`;
+    }
+  </script>
+</body>
+</html>
